@@ -40,12 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.Storage" Version="4.1.2" />
+    <PackageReference Include="IdentityServer4.Storage" Version="$(IdentityServerVersion)" />
 
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.27.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.31.0" />
 
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.19" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" Version="1.1.1" />
   </ItemGroup>
 </Project>
