@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Serilog" Version="2.9.0" />
@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\IdentityServer4.EntityFramework.csproj" />
 
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EntityFrameworkVersion)" />
     <PackageReference Include="System.Security.Principal.Windows" />
   </ItemGroup>
 
