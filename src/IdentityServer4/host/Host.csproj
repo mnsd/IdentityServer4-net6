@@ -15,14 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="6.0.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="$(FrameworkVersion)" />
     
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.19" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EntityFrameworkVersion)" />
     <!--<PackageReference Include="IdentityServer4.EntityFramework" />-->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" PrivateAssets="All" Version="6.0.19" />
-    <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" PrivateAssets="All" Version="$(EntityFrameworkVersion)" />
+    <PackageReference Include="System.Security.Principal.Windows" Version="4.7.0" />
     
     <ProjectReference Include="..\src\IdentityServer4.csproj" />
   </ItemGroup>
