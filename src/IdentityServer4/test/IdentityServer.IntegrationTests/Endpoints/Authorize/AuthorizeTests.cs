@@ -938,7 +938,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 redirectUri: "https://client1/callback",
                 state: "123_state",
                 nonce: "123_nonce",
-                extra: new { ui_locales = new string('x', 500) });
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string> { { "ui_locales", new string('x', 500) } }));
             await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.ErrorWasCalled.Should().BeTrue();
@@ -961,7 +961,10 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 redirectUri: "https://client1/callback",
                 state: "123_state",
                 nonce: "123_nonce",
-                extra: new { max_age = "invalid" });
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>
+                {
+                    { "max_age", "invalid" }
+                }));
             await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.ErrorWasCalled.Should().BeTrue();
@@ -984,7 +987,10 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 redirectUri: "https://client1/callback",
                 state: "123_state",
                 nonce: "123_nonce",
-                extra: new { max_age = "-10" });
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>
+                {
+                    { "max_age", "-10" }
+                }));
             await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.ErrorWasCalled.Should().BeTrue();
@@ -1077,7 +1083,10 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 state: "123_state",
                 nonce: "123_nonce",
                 acrValues: new string('x', 500),
-                extra: new { ui_locales = "fr-FR" });
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>
+                {
+                    { "ui_locales", "fr-FR" }
+                }));
             await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.ErrorWasCalled.Should().BeTrue();
@@ -1098,7 +1107,10 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 state: "123_state",
                 nonce: "123_nonce",
                 acrValues: new string('x', 500),
-                extra: new { display = "popup" });
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>
+                {
+                    { "display", "popup" }
+                }));
             await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.ErrorWasCalled.Should().BeTrue();
@@ -1153,8 +1165,10 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 redirectUri: "https://client3/callback",
                 state: "123_state",
                 nonce: "123_nonce",
-                extra:new { prompt = "login" }
-            );
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>
+                {
+                    { "prompt", "login" }
+                }));
             var response = await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.LoginWasCalled.Should().BeTrue();

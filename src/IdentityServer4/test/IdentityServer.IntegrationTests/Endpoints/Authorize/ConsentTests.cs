@@ -117,7 +117,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
         }
 
         [Theory]
-        [InlineData((Type)null)]
+        [InlineData((Type) null)]
         [InlineData(typeof(QueryStringAuthorizationParametersMessageStore))]
         [InlineData(typeof(DistributedCacheAuthorizationParametersMessageStore))]
         [Trait("Category", Category)]
@@ -142,13 +142,12 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 state: "123_state",
                 nonce: "123_nonce",
                 acrValues: "acr_1 acr_2 tenant:tenant_value",
-                extra: new
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>
                 {
-                    display = "popup", // must use a valid value form the spec for display
-                    ui_locales = "ui_locale_value",
-                    custom_foo = "foo_value"
-                }
-            );
+                    { "display", "popup" }, // must use a valid value form the spec for display
+                    { "ui_locales", "ui_locale_value" },
+                    { "custom_foo", "foo_value" }
+                }));
             var response = await _mockPipeline.BrowserClient.GetAsync(url);
 
             _mockPipeline.ConsentRequest.Should().NotBeNull();
