@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <!--build related-->
-    <!-- <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="All" /> -->
+    <PackageReference Include="MinVer" Version="2.3.0" PrivateAssets="All" />
     <PackageReference Update="SimpleExec" Version="6.2.0" />
     <PackageReference Update="Bullseye" Version="3.3.0" />
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
@@ -24,11 +24,11 @@
     <!--our stuff -->
     <PackageReference Update="IdentityModel" Version="6.2.0" />
 
-    <PackageReference Update="IdentityServer4" Version="$(IdentityServerVersion)" />
-    <PackageReference Update="IdentityServer4.AspNetIdentity" Version="$(IdentityServerVersion)" />
-    <PackageReference Update="IdentityServer4.Storage" Version="$(IdentityServerVersion)" />
-    <PackageReference Update="IdentityServer4.EntityFramework.Storage" Version="$(IdentityServerVersion)" />
-    <PackageReference Update="IdentityServer4.EntityFramework" Version="$(IdentityServerVersion)" />
+    <PackageReference Update="IdentityServer4-net6" Version="$(IdentityServerVersion)" />
+    <PackageReference Update="IdentityServer4.AspNetIdentity-net6" Version="$(IdentityServerVersion)" />
+    <PackageReference Update="IdentityServer4.Storage-net6-net6" Version="$(IdentityServerVersion)" />
+    <PackageReference Update="IdentityServer4.EntityFramework.Storage-net6" Version="$(IdentityServerVersion)" />
+    <PackageReference Update="IdentityServer4.EntityFramework-net6" Version="$(IdentityServerVersion)" />
 
     <!--microsoft extensions -->
     <PackageReference Update="Microsoft.Extensions.Caching.Memory" Version="$(ExtensionsVersion)" />

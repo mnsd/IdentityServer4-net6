@@ -39,7 +39,7 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="IdentityServer4" />
+    <PackageReference Include="IdentityServer4-net6" />
     
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
   </ItemGroup>
