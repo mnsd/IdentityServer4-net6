@@ -3,25 +3,19 @@
 
 
 using IdentityModel;
-using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Security.Claims;
-
-#pragma warning disable 1591
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace IdentityServer4.Stores.Serialization
 {
-    public class ClaimsPrincipalConverter : JsonConverter
+    public class ClaimsPrincipalConverter : JsonConverter<ClaimsPrincipal>
     {
-        public override bool CanConvert(Type objectType)
+        public override ClaimsPrincipal Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return typeof(ClaimsPrincipal) == objectType;
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            var source = serializer.Deserialize<ClaimsPrincipalLite>(reader);
+            var source = JsonSerializer.Deserialize<ClaimsPrincipalLite>(reader.GetString());
             if (source == null) return null;
 
             var claims = source.Claims.Select(x => new Claim(x.Type, x.Value, x.ValueType));
@@ -30,16 +24,14 @@ namespace IdentityServer4.Stores.Serialization
             return target;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, ClaimsPrincipal value, JsonSerializerOptions options)
         {
-            var source = (ClaimsPrincipal)value;
-
             var target = new ClaimsPrincipalLite
             {
-                AuthenticationType = source.Identity.AuthenticationType,
-                Claims = source.Claims.Select(x => new ClaimLite { Type = x.Type, Value = x.Value, ValueType = x.ValueType }).ToArray()
+                AuthenticationType = value.Identity.AuthenticationType,
+                Claims = value.Claims.Select(x => new ClaimLite { Type = x.Type, Value = x.Value, ValueType = x.ValueType }).ToArray()
             };
-            serializer.Serialize(writer, target);
+            JsonSerializer.Serialize(writer, target);
         }
     }
 }
