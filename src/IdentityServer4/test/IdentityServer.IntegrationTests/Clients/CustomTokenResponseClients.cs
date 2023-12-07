@@ -125,8 +125,8 @@ namespace IdentityServer.IntegrationTests.Clients
             Assert.Null(fields.TryGetString("refresh_token"));
             Assert.Null(fields.TryGetString("error"));
             Assert.Null(fields.TryGetString("error_description"));
-            Assert.Null(fields.TryGetString("token_type"));
-            Assert.False(fields.TryGetValue("expires_in").TryGetInt64(out var _));
+            Assert.NotNull(fields.TryGetString("token_type"));
+            Assert.True(fields.TryGetValue("expires_in").TryGetInt64(out var _));
 
             var responseObject = fields.TryGetValue("dto");
             responseObject.ValueKind.Should().Be(JsonValueKind.Object);
@@ -179,8 +179,8 @@ namespace IdentityServer.IntegrationTests.Clients
             Assert.Null(fields.TryGetString("refresh_token"));
             Assert.Null(fields.TryGetString("error"));
             Assert.Null(fields.TryGetString("error_description"));
-            Assert.Null(fields.TryGetString("token_type"));
-            Assert.False(fields.TryGetValue("expires_in").TryGetInt64(out var _));
+            Assert.NotNull(fields.TryGetString("token_type"));
+            Assert.True(fields.TryGetValue("expires_in").TryGetInt64(out var _));
 
             var responseObject = fields.TryGetValue("dto");
             responseObject.ValueKind.Should().Be(JsonValueKind.Object);
@@ -264,8 +264,8 @@ namespace IdentityServer.IntegrationTests.Clients
             Assert.Null(fields.TryGetString("refresh_token"));
             Assert.Null(fields.TryGetString("error"));
             Assert.Null(fields.TryGetString("error_description"));
-            Assert.Null(fields.TryGetString("token_type"));
-            Assert.False(fields.TryGetValue("expires_in").TryGetInt64(out var _));
+            Assert.NotNull(fields.TryGetString("token_type"));
+            Assert.True(fields.TryGetValue("expires_in").TryGetInt64(out var _));
 
             var responseObject = fields.TryGetValue("dto");
             responseObject.ValueKind.Should().Be(JsonValueKind.Object);
