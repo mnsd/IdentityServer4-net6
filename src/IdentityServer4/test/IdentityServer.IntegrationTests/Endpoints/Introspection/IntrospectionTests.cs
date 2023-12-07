@@ -259,24 +259,23 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
+            var values = introspectionResponse.Json; //.Deserialize<Dictionary<string, object>>();
 
-            values["aud"].GetType().Name.Should().Be("JArray");
+            var audiences = values.TryGetStringArray("aud");
 
-            var audiences = ((JsonArray)values["aud"]);
             foreach (var aud in audiences)
             {
-                aud.GetType().Should().Be(JsonTokenType.String.GetType());
+                aud.GetType().Should().Be(typeof(string));
             }
 
-            values["iss"].GetType().Name.Should().Be("String");
-            values["nbf"].GetType().Name.Should().Be("Int64");
-            values["exp"].GetType().Name.Should().Be("Int64");
-            values["client_id"].GetType().Name.Should().Be("String");
-            values["active"].GetType().Name.Should().Be("Boolean");
-            values["scope"].GetType().Name.Should().Be("String");
+            Assert.NotNull(values.TryGetString("iss"));
+            Assert.True(values.TryGetValue("exp").TryGetInt64(out var _));
+            Assert.True(values.TryGetValue("nbf").TryGetInt64(out var _));
+            Assert.NotNull(values.TryGetString("client_id"));
+            Assert.NotNull(values.TryGetBoolean("active"));
+            Assert.NotNull(values.TryGetString("scope"));
 
-            var scopes = values["scope"].ToString();
+            var scopes = values.TryGetString("scope");
             scopes.Should().Be("api3-a api3-b");
         }
 
