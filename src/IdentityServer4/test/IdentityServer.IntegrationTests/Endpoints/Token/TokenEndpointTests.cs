@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -9,6 +8,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer.IntegrationTests.Common;
 using Xunit;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace IdentityServer.IntegrationTests.Endpoints.Token
 {
@@ -88,7 +89,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Token
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var json = await response.Content.ReadAsStringAsync();
-            var result = JObject.Parse(json);
+            var result = JsonObject.Parse(json) as JsonObject;
             result.ContainsKey("error").Should().BeFalse();
         }
 
@@ -111,7 +112,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Token
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var json = await response.Content.ReadAsStringAsync();
-            var result = JObject.Parse(json);
+            var result = JsonObject.Parse(json) as JsonObject;
             result.ContainsKey("error").Should().BeFalse();
         }
     }
