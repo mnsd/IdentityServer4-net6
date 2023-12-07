@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Clients;
 using IdentityServer.IntegrationTests.Endpoints.Introspection.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;

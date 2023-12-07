@@ -194,12 +194,12 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                 nonce: "123_nonce",
                 loginHint: "login_hint_value",
                 acrValues: "acr_1 acr_2 tenant:tenant_value idp:idp_value",
-                extra: new
+                extra: new IdentityModel.Client.Parameters(new Dictionary<string, string>()
                 {
-                    display = "popup", // must use a valid value from the spec for display
-                    ui_locales = "ui_locale_value",
-                    custom_foo = "foo_value"
-                });
+                    { "display", "popup" }, // must use a valid value from the spec for display
+                    { "ui_locales", "ui_locale_value" },
+                    { "custom_foo", "foo_value" }
+                }));
             var response = await _mockPipeline.BrowserClient.GetAsync(url + "&foo=bar");
 
             _mockPipeline.LoginRequest.Should().NotBeNull();
