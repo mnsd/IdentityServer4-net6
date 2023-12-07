@@ -48,7 +48,7 @@ namespace IdentityServer.IntegrationTests.Clients
             });
 
             var fields = GetFields(response);
-            fields.Should().Contain("custom", "custom");
+            Assert.Equal("custom", fields.TryGetString("custom"));
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace IdentityServer.IntegrationTests.Clients
             });
 
             var fields = GetFields(response);
-            fields.Should().Contain("custom", "custom");
+            Assert.Equal("custom", fields.TryGetString("custom"));
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace IdentityServer.IntegrationTests.Clients
             });
 
             var fields = GetFields(response);
-            fields.Should().Contain("custom", "custom");
+            Assert.Equal("custom", fields.TryGetString("custom"));
         }
 
         [Fact]
@@ -117,12 +117,12 @@ namespace IdentityServer.IntegrationTests.Clients
             });
 
             var fields = GetFields(response);
-            fields.Should().Contain("custom", "custom");
+            Assert.Equal("custom", fields.TryGetString("custom"));
         }
 
-        private Dictionary<string, object> GetFields(TokenResponse response)
+        private JsonElement GetFields(TokenResponse response)
         {
-            return response.Json.Deserialize<Dictionary<string, object>>();
+            return response.Json;
         }
     }
 }
