@@ -14,8 +14,8 @@ using IdentityServer.IntegrationTests.Clients;
 using IdentityServer.IntegrationTests.Endpoints.Introspection.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Endpoints.Introspection
@@ -121,7 +121,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 client_secret = "secret",
                 token = tokenResponse.AccessToken
             };
-            var json = JsonConvert.SerializeObject(data);
+            var json = JsonSerializer.Serialize(data);
 
             var client = new HttpClient(_handler);
             var response = await client.PostAsync(IntrospectionEndpoint, new StringContent(json, Encoding.UTF8, "application/json"));
@@ -181,7 +181,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.ToObject<Dictionary<string, object>>();
+            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
 
             values["aud"].GetType().Name.Should().Be("String");
             values["iss"].GetType().Name.Should().Be("String");
@@ -220,7 +220,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.ToObject<Dictionary<string, object>>();
+            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
 
             values["aud"].GetType().Name.Should().Be("String");
             values["iss"].GetType().Name.Should().Be("String");
@@ -259,14 +259,14 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.ToObject<Dictionary<string, object>>();
+            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
 
             values["aud"].GetType().Name.Should().Be("JArray");
 
-            var audiences = ((JArray)values["aud"]);
+            var audiences = ((JsonArray)values["aud"]);
             foreach (var aud in audiences)
             {
-                aud.Type.Should().Be(JTokenType.String);
+                aud.GetType().Should().Be(JsonTokenType.String.GetType());
             }
 
             values["iss"].GetType().Name.Should().Be("String");
@@ -304,7 +304,7 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.ToObject<Dictionary<string, object>>();
+            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
 
             values["aud"].GetType().Name.Should().Be("String");
             values["iss"].GetType().Name.Should().Be("String"); 
