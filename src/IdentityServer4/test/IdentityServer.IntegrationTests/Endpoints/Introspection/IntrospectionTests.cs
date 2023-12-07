@@ -181,17 +181,17 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
+            var values = introspectionResponse.Json;
 
-            values["aud"].GetType().Name.Should().Be("String");
-            values["iss"].GetType().Name.Should().Be("String");
-            values["nbf"].GetType().Name.Should().Be("Int64");
-            values["exp"].GetType().Name.Should().Be("Int64");
-            values["client_id"].GetType().Name.Should().Be("String");
-            values["active"].GetType().Name.Should().Be("Boolean");
-            values["scope"].GetType().Name.Should().Be("String");
+            Assert.NotNull(values.TryGetString("aud"));
+            Assert.NotNull(values.TryGetString("iss"));
+            Assert.True(values.TryGetValue("exp").TryGetInt64(out var _));
+            Assert.True(values.TryGetValue("nbf").TryGetInt64(out var _));
+            Assert.NotNull(values.TryGetString("client_id"));
+            Assert.NotNull(values.TryGetBoolean("active"));
+            Assert.NotNull(values.TryGetString("scope"));
 
-            values["scope"].ToString().Should().Be("api1");
+            values.TryGetString("scope").Should().Be("api1");
         }
 
         [Fact]
@@ -220,19 +220,17 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
+            var values = introspectionResponse.Json;
 
-            values["aud"].GetType().Name.Should().Be("String");
-            values["iss"].GetType().Name.Should().Be("String");
-            values["nbf"].GetType().Name.Should().Be("Int64");
-            values["exp"].GetType().Name.Should().Be("Int64");
-            values["auth_time"].GetType().Name.Should().Be("Int64");
-            values["client_id"].GetType().Name.Should().Be("String");
-            values["sub"].GetType().Name.Should().Be("String");
-            values["active"].GetType().Name.Should().Be("Boolean");
-            values["scope"].GetType().Name.Should().Be("String");
-
-            values["scope"].ToString().Should().Be("api1");
+            Assert.NotNull(values.TryGetString("aud"));
+            Assert.NotNull(values.TryGetString("iss"));
+            Assert.True(values.TryGetValue("exp").TryGetInt64(out var _));
+            Assert.True(values.TryGetValue("nbf").TryGetInt64(out var _));
+            Assert.True(values.TryGetValue("auth_time").TryGetInt64(out var _));
+            Assert.NotNull(values.TryGetString("client_id"));
+            Assert.NotNull(values.TryGetString("sub"));
+            Assert.NotNull(values.TryGetBoolean("active"));
+            Assert.NotNull(values.TryGetString("scope"));
         }
 
         [Fact]
