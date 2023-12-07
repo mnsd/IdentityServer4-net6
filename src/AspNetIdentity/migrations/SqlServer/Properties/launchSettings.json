@@ -18,10 +18,10 @@
     "SqlServer": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "http://localhost:7604/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:7604/"
+      }
     }
   }
 }
