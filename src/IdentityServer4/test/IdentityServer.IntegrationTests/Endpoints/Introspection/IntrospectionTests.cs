@@ -304,17 +304,17 @@ namespace IdentityServer.IntegrationTests.Endpoints.Introspection
                 Token = tokenResponse.AccessToken
             });
 
-            var values = introspectionResponse.Json.Deserialize<Dictionary<string, object>>();
+            var values = introspectionResponse.Json.Deserialize<Dictionary<string, JsonElement>>();
 
-            values["aud"].GetType().Name.Should().Be("String");
-            values["iss"].GetType().Name.Should().Be("String"); 
-            values["nbf"].GetType().Name.Should().Be("Int64"); 
-            values["exp"].GetType().Name.Should().Be("Int64"); 
-            values["client_id"].GetType().Name.Should().Be("String"); 
-            values["active"].GetType().Name.Should().Be("Boolean"); 
-            values["scope"].GetType().Name.Should().Be("String");
+            Assert.NotNull(values["aud"].GetString()); 
+            Assert.NotNull(values["iss"].GetString());
+            Assert.True(values["exp"].TryGetInt64(out var _));
+            Assert.True(values["nbf"].TryGetInt64(out var _));
+            Assert.NotNull(values["client_id"].GetString());
+            Assert.True(values["active"].GetBoolean());
+            Assert.NotNull(values["scope"].GetString());
 
-            var scopes = values["scope"].ToString();
+            var scopes = values["scope"].GetString();
             scopes.Should().Be("api3-a api3-b");
         }
 
