@@ -129,6 +129,7 @@ namespace IdentityServer.IntegrationTests.Clients
                 Address = TokenEndpoint,
 
                 ClientId = ClientId,
+                ClientCredentialStyle = ClientCredentialStyle.PostBody,
                 ClientAssertion =
                 {
                     Type = OidcConstants.ClientAssertionTypes.JwtBearer,
