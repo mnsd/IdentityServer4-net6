@@ -511,8 +511,8 @@ namespace IdentityServer.IntegrationTests.Endpoints.Authorize
                     new Claim("display", "popup"),
                     new Claim("ui_locales", "ui_locale_value"),
                     new Claim("foo", "123foo"),
-                    new Claim("someObj", someObjJson, Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.Json),
-                    new Claim("someArr", someArrJson, Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.JsonArray),
+                    new Claim("someObj", someObjJson), // Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.Json),
+                    new Claim("someArr", someArrJson) //Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.JsonArray),
             });
 
             var url = _mockPipeline.CreateAuthorizeUrl(
